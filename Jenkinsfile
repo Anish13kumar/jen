@@ -5,7 +5,8 @@ pipeline {
         stage('Remove Existing Container') {
             steps {
                 script {
-                    sh 'docker rm -f <container_name_or_id>'
+                    sh 'docker rm -f jenk'
+                    echo 'removed existing'
                 }
             }
         }
@@ -13,7 +14,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t <image_name>:<image_tag> .'
+                    sh 'docker build -t jen .'
+                    echo 'build success'
+
                 }
             }
         }
@@ -21,7 +24,8 @@ pipeline {
         stage('Run New Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 8000:8000 --name <container_name> <image_name>:<image_tag>'
+                    sh 'docker run -d --name jen jenk'
+                    echo 'container running'
                 }
             }
         }
